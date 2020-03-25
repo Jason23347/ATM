@@ -10,4 +10,4 @@
 windows窗体程序
 
 ## 通信接口
-http
+ATM终端与ATM系统服务器采用HTTP通信协议进行交互。
