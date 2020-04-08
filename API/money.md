@@ -40,9 +40,17 @@
 | 字段           | 必须 | 类型    | 描述     |
 | -------------- | ---- | ------- | -------- |
 | amount         | y    | integer | 金额     |
-| transfer_perty | y    | integer | 转帐账户 |
+| transfer_party | y    | integer | 转帐账户 |
 
 ### request example
+```json
+{
+    "amount": 100.00,
+    "transfer_party": 4008823823
+}
+```
+
+### response example
 ```json
 {
     "errcode": 0,
@@ -54,8 +62,6 @@
     }
 }
 ```
-
-### response example
 
 ## 存款
 | Method | URL            | Description |
