@@ -6,7 +6,7 @@
 | GET    | /money | 余额与最近操作记录查询 |
 
 ### response example
-```json
+```jsonc
 {
     "errcode": 0,
     "message": "操作成功",
@@ -43,7 +43,7 @@
 | transfer_party | y    | integer | 转帐账户 |
 
 ### request example
-```json
+```jsonc
 {
     "amount": 100.00,
     "transfer_party": 4008823823
@@ -51,7 +51,7 @@
 ```
 
 ### response example
-```json
+```jsonc
 {
     "errcode": 0,
     "message": "操作成功",
@@ -75,7 +75,7 @@
 | amount | y    | integer | 存款金额 |
 
 ### response example
-```json
+```jsonc
 {
     "errcode": 0,
     "message": "操作成功",
@@ -99,7 +99,7 @@
 | amount | y    | integer | 取款金额 |
 
 ### response example
-```json
+```jsonc
 {
     "errcode": 0,
     "message": "操作成功",

@@ -14,7 +14,7 @@
 | password    | y    | integer  | 六位数字密码     |
 
 ### request example
-```json
+```jsonc
 {
     "card_number": "4008823823",
     "password": "123456",
@@ -23,7 +23,7 @@
 
 ### response example
 #### error example
-```json
+```jsonc
 {
     "errcode": 1002,
     "message": "密码错误，还可以尝试 4 次",
@@ -32,7 +32,7 @@
 ```
 
 #### success example
-```json
+```jsonc
 {
     "errcode": 0,
     "message": "操作成功"
