@@ -15,9 +15,9 @@ class UsersTableSeeder extends Seeder
     {
         $user = new User;
         $user->forceFill([
-            'name'      => 'jason',
-            'balance'   => 123.45,
-            'password'  => Hash::make('password'),
+            'card_number'   => '4008823823',
+            'balance'       => 123.45,
+            'password'      => Hash::make('password'),
         ])->save();
     }
 }
