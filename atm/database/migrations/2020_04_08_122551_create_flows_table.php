@@ -20,7 +20,7 @@ class CreateFlowsTable extends Migration
             $table->integer('type');
             $table->float('amount');
 
-            $table->timestamps();
+            $table->timestamp('created_at');
         });
     }
 

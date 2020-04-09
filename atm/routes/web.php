@@ -17,4 +17,14 @@ Route::get('/', function () {
     return view('welcome');
 })->name('index');
 
+Route::group([
+    'middleware'    => ['auth'],
+    'prefix'        => 'money',
+], function () {
+    Route::get('/', 'MoneyController@index');
+    Route::post('/transfer', 'MoneyController@transfer');
+    Route::get('/deposit', 'MoneyController@deposit');
+    Route::get('/withdraw', 'MoneyController@withdraw');
+});
+
 Route::get('/home', 'HomeController@index')->name('home');
