@@ -7,22 +7,31 @@ use Cache;
 class MoneyCheck
 {
     /**
-     * Daily Maximum amount
+     * Daily maximum transfer amount
      *
      * @var float
      */
-    private $maximum;
+    private $maxTransfer;
+
+    /**
+     * Daily maximum withdraw amount
+     *
+     * @var float
+     */
+    private $maxWithdraw;
 
     private $user;
 
-    public function __construct(User $user) {
+    public function __construct(User $user)
+    {
         $this->user = $user;
-        $this->maximum = config('money.maximum');
+        $this->maxTransfer = config('money.daily.transfer');
+        $this->maxWithdraw = config('money.daily.withdraw');
     }
 
     public function transferRemain()
     {
-        return $this->remain('transfer');
+        return $this->remain('transfer', $this->maxTransfer);
     }
 
     public function setTransferRemain(int $amount)
@@ -32,7 +41,7 @@ class MoneyCheck
 
     public function withdrawRemain()
     {
-        return $this->remain('withdraw');
+        return $this->remain('withdraw', $this->maxWithdraw);
     }
 
     public function setWithdrawRemain(int $amount)
@@ -40,23 +49,23 @@ class MoneyCheck
         return $this->setRemain('withdraw', $amount);
     }
 
-    private function remain(string $prefix)
+    private function remain(string $prefix, float $default)
     {
         return Cache::remember(
-            "daily_" . $prefix ."_remain_" . $this->user->id,
+            "daily_" . $prefix . "_remain_" . $this->user->id,
             86400, // at most a day
-            function () {
-                return $this->maximum;
-            });
+            function () use ($default) {
+                return $default;
+            }
+        );
     }
 
     private function setRemain(string $prefix, int $amount)
     {
-        Cache::remember(
-            "daily_" . $prefix ."_remain_" . $this->user->id,
-            86400, // at most a day
-            function () {
-                return $this->$maximum - $amount;
-            });
+        Cache::put(
+            "daily_" . $prefix . "_remain_" . $this->user->id,
+            $amount,
+            86400 // at most a day
+        );
     }
 }
