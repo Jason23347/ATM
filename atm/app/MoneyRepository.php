@@ -35,7 +35,9 @@ class MoneyRepository
      *
      * @param Flow $flow
      */
-    public function __construct(Flow $flow, MoneyCheck $check) {
+    public function __construct(User $user, Flow $flow, MoneyCheck $check)
+    {
+        $this->user = $user;
         $this->flow = $flow;
         $this->check = $check;
     }
@@ -43,20 +45,6 @@ class MoneyRepository
     private function parseMoney(float $amount)
     {
         return number_format($amount, 2, '.', '');
-    }
-
-    /**
-     * Bind user
-     *
-     * @param User $user
-     *
-     * @return App\MoneyRepository
-     */
-    public function asUser(User $user)
-    {
-        // FIXME check whether $user == null
-        $this->user = $user;
-        return $this;
     }
 
     /**
@@ -69,9 +57,9 @@ class MoneyRepository
     public function getRecords(int $num = 5)
     {
         return $this->flow->where('user_id', $this->user->id)
-                    ->sortBy('created_at', 'desc')
-                    ->take($num)
-                    ->get();
+            ->orderBy('created_at', 'desc')
+            ->take($num)
+            ->get();
     }
 
     /**
@@ -87,8 +75,8 @@ class MoneyRepository
         $payment = $this->user;
 
         // find trasfer user
-        $collect = $this->user->where('card_number', $arr['card_number'])
-                    ->first();
+        $collect = $this->user->where('card_number', $arr['transfer_party'])
+            ->first();
         if ($collect == null) {
             return [
                 'errcode'   => 3002,
@@ -140,7 +128,7 @@ class MoneyRepository
         $amount = $this->parseMoney($arr['amount']);
 
         // update database
-        $this->user->balance -= $amount;
+        $this->user->balance += $amount;
         $res = $this->user->save();
         if (!$res) {
             return [
