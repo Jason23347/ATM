@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
 
             $table->string('card_number')->unique();
             $table->string('password');
-            $table->float('balance');
+            $table->float('balance')->default(0);
             $table->boolean('locked')->default(false);
 
             $table->rememberToken();
