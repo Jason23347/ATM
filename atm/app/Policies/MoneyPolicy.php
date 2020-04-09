@@ -14,7 +14,6 @@ class MoneyPolicy
      * Determine whether the user can view operation records.
      *
      * @param  \App\User  $user
-     * @param  \App\MoneyRepository  $money
      * @return mixed
      */
     public function view(User $user)
@@ -26,7 +25,6 @@ class MoneyPolicy
      * Determine whether the user can update the money.
      *
      * @param  \App\User  $user
-     * @param  \App\MoneyRepository  $money
      * @return mixed
      */
     public function update(User $user)

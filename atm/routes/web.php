@@ -21,10 +21,12 @@ Route::group([
     'middleware'    => ['auth'],
     'prefix'        => 'money',
 ], function () {
-    Route::get('/', 'MoneyController@index');
-    Route::post('/transfer', 'MoneyController@transfer');
-    Route::get('/deposit', 'MoneyController@deposit');
-    Route::get('/withdraw', 'MoneyController@withdraw');
+    Route::get('/', 'MoneyController@index')->middleware('can:view,App\MoneyRepository');
+    Route::group(['middleware' => ['can:update,App\MoneyRepository']], function () {
+        Route::post('/transfer', 'MoneyController@transfer');
+        Route::get('/deposit', 'MoneyController@deposit');
+        Route::get('/withdraw', 'MoneyController@withdraw');
+    });
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
