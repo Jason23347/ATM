@@ -82,8 +82,10 @@ export default {
         self.text = "loading...";
       },
       hide() {
-        // FIXME not too fast
-        self.text = "Empty";
+        setTimeout(() => {
+          self.text = "Empty";
+          self.loading = false;
+        }, 400);
       }
     };
   },
