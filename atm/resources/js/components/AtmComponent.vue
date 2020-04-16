@@ -4,7 +4,36 @@
       <div class="card-header">ATM 操作系统</div>
 
       <div class="card-body">
-        <div class="screen">{{ text }}</div>
+        <div class="col-6">
+          <div class="card-body">
+            <div class="card-date">
+              <time>
+                16 April 2020
+                <!-- FixME -->
+                <!-- {{obj.date}} -->
+              </time>
+            </div>
+
+            <!-- 若无法运行先删除v-if -->
+
+            <div v-if="label === 0" class="card-title">
+              <h3 style="padding-top:20px">
+                转账
+                <!-- FixMe -->
+                <!-- {{obj.title}} -->
+              </h3>
+            </div>
+
+            <!-- 若无法运行先删除v-if -->
+
+            <div v-if="label === 0" class="card-exceprt">
+              <form>
+                <label for="zhuanzhang"></label>
+                <input type="text" class="form-control" id="zhuanzhang" placeholder="请输入数目" />
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="btn-list">
         <div class="col-3 float-left">
@@ -58,6 +87,9 @@ export default {
   data() {
     return {
       text: "loading...",
+      //存取款:0 , 存款:1 , 取款:2 , 查询:3 , 转账:4 , 退出: 5 ,
+      //存取款界面暂时显示转账
+      label: 0,
       btn: {
         info: {
           success: "存取款",
